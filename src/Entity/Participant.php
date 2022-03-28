@@ -6,11 +6,14 @@ use App\Repository\ParticipantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Null_;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=ParticipantRepository::class)
  */
-class Participant
+class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Id
@@ -35,7 +38,7 @@ class Participant
     private $telephone;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=180, unique=true)
      */
     private $mail;
 
@@ -55,26 +58,23 @@ class Participant
     private $actif;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, unique=true)
      */
     private $pseudo;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Sortie::class, mappedBy="participant")
-     * @ORM\JoinColumn(referencedColumnName="id_sortie")
+     * @ORM\ManyToMany(targetEntity=Sortie::class, mappedBy="participants")
      */
     private $sorties;
 
     /**
-     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisateur", orphanRemoval=true)
-     * @ORM\JoinColumn(referencedColumnName="id_sortie")
+     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisateur")
      */
     private $sortieOrga;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="participant")
-     * @ORM\JoinColumn(referencedColumnName="id_campus")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="participants")
+     * @ORM\JoinColumn(referencedColumnName="id_campus", nullable=false)
      */
     private $campus;
 
@@ -82,6 +82,8 @@ class Participant
     {
         $this->sorties = new ArrayCollection();
         $this->sortieOrga = new ArrayCollection();
+        $this ->actif = false;
+        $this ->administrateur =false;
     }
 
     public function getIdParticipant(): ?int
@@ -232,12 +234,7 @@ class Participant
 
     public function removeSortieOrga(Sortie $sortieOrga): self
     {
-        if ($this->sortieOrga->removeElement($sortieOrga)) {
-            // set the owning side to null (unless already changed)
-            if ($sortieOrga->getOrganisateur() === $this) {
-                $sortieOrga->setOrganisateur(null);
-            }
-        }
+        $this->sortieOrga->removeElement($sortieOrga);
 
         return $this;
     }
@@ -252,5 +249,38 @@ class Participant
         $this->campus = $campus;
 
         return $this;
+    }
+
+    public function getRoles() : array
+    {
+
+        return $this -> administrateur ? ["ROLE_ADMIN"] : ["ROLE_USER"];
+    }
+
+    public function getPassword() : string
+    {
+
+        return $this -> motPasse;
+    }
+
+    public function getSalt() : ?string
+    {
+       return null;
+    }
+
+    public function eraseCredentials() : void
+    {
+
+    }
+
+    public function getUsername() : string
+    {
+        return $this -> pseudo;
+    }
+
+    public function getUserIdentifier() : string
+    {
+
+        return $this->mail;
     }
 }

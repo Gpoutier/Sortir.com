@@ -20,20 +20,20 @@ class Etat
     private $idEtat;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @ORM\JoinColumn(referencedColumnName="id_etat")
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $libelle;
 
     /**
-     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="etat", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="etat")
      * @ORM\JoinColumn(referencedColumnName="id_sortie")
      */
-    private $sortie;
+    private $sorties;
+
 
     public function __construct()
     {
-        $this->sortie = new ArrayCollection();
+        $this->sorties = new ArrayCollection();
     }
 
     public function getIdEtat(): ?int
@@ -58,13 +58,13 @@ class Etat
      */
     public function getSortie(): Collection
     {
-        return $this->sortie;
+        return $this->sorties;
     }
 
     public function addSortie(Sortie $sortie): self
     {
-        if (!$this->sortie->contains($sortie)) {
-            $this->sortie[] = $sortie;
+        if (!$this->sorties->contains($sortie)) {
+            $this->sorties[] = $sortie;
             $sortie->setEtat($this);
         }
 
@@ -73,12 +73,7 @@ class Etat
 
     public function removeSortie(Sortie $sortie): self
     {
-        if ($this->sortie->removeElement($sortie)) {
-            // set the owning side to null (unless already changed)
-            if ($sortie->getEtat() === $this) {
-                $sortie->setEtat(null);
-            }
-        }
+        $this->sorties->removeElement($sortie);
 
         return $this;
     }

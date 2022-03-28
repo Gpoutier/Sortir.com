@@ -20,26 +20,24 @@ class Campus
     private $idCampus;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique =true)
      */
     private $nom;
 
     /**
-     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="campus", orphanRemoval=true)
-     * @ORM\JoinColumn(referencedColumnName="id_sortie")
+     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="campus")
      */
     private $sorties;
 
     /**
-     * @ORM\OneToMany(targetEntity=Participant::class, mappedBy="campus", orphanRemoval=true)
-     * @ORM\JoinColumn(referencedColumnName="id_participant")
+     * @ORM\OneToMany(targetEntity=Participant::class, mappedBy="campus")
      */
-    private $participant;
+    private $participants;
 
     public function __construct()
     {
         $this->sorties = new ArrayCollection();
-        $this->participant = new ArrayCollection();
+        $this->participants = new ArrayCollection();
     }
 
     public function getIdCampus(): ?int
@@ -79,13 +77,7 @@ class Campus
 
     public function removeSorty(Sortie $sorty): self
     {
-        if ($this->sorties->removeElement($sorty)) {
-            // set the owning side to null (unless already changed)
-            if ($sorty->getCampus() === $this) {
-                $sorty->setCampus(null);
-            }
-        }
-
+        $this->sorties->removeElement($sorty);
         return $this;
     }
 
@@ -94,13 +86,13 @@ class Campus
      */
     public function getParticipant(): Collection
     {
-        return $this->participant;
+        return $this->participants;
     }
 
     public function addParticipant(Participant $participant): self
     {
-        if (!$this->participant->contains($participant)) {
-            $this->participant[] = $participant;
+        if (!$this->participants->contains($participant)) {
+            $this->participants[] = $participant;
             $participant->setCampus($this);
         }
 
@@ -109,12 +101,7 @@ class Campus
 
     public function removeParticipant(Participant $participant): self
     {
-        if ($this->participant->removeElement($participant)) {
-            // set the owning side to null (unless already changed)
-            if ($participant->getCampus() === $this) {
-                $participant->setCampus(null);
-            }
-        }
+        $this->participants->removeElement($participant);
 
         return $this;
     }

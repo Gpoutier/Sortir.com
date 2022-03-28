@@ -35,7 +35,7 @@ class Sortie
     private $duree;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $dateLimiteInscription;
 
@@ -45,47 +45,43 @@ class Sortie
     private $nbInscriptionsMax;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text", length=255)
      */
     private $infosSortie;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Etat::class, inversedBy="sortie")
-     * @ORM\JoinColumn(referencedColumnName="id_etat")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Etat::class, inversedBy="sorties")
+     * @ORM\JoinColumn(referencedColumnName="id_etat", nullable=false)
      */
     private $etat;
 
     /**
      * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sorties")
-     * @ORM\JoinColumn(referencedColumnName="id_lieu")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(referencedColumnName="id_lieu", nullable=false)
      */
     private $lieu;
 
     /**
      * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="sorties")
-     * @ORM\JoinColumn(referencedColumnName="id_campus")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(referencedColumnName="id_campus", nullable=false)
      */
     private $campus;
 
     /**
      * @ORM\ManyToMany(targetEntity=Participant::class, inversedBy="sorties")
-     * @ORM\JoinColumn(referencedColumnName="id_participant")
+     * @ORM\JoinTable(joinColumns={@ORM\JoinColumn(referencedColumnName="id_sortie")}, inverseJoinColumns={@ORM\JoinColumn(referencedColumnName="id_participant")})
      */
-    private $participant;
+    private $participants;
 
     /**
      * @ORM\ManyToOne(targetEntity=Participant::class, inversedBy="sortieOrga")
-     * @ORM\JoinColumn(referencedColumnName="id_participant")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(referencedColumnName="id_participant", nullable=false)
      */
     private $organisateur;
 
     public function __construct()
     {
-        $this->participant = new ArrayCollection();
+        $this->participants = new ArrayCollection();
     }
 
 
@@ -206,15 +202,15 @@ class Sortie
     /**
      * @return Collection<int, Participant>
      */
-    public function getParticipant(): Collection
+    public function getParticipants(): Collection
     {
-        return $this->participant;
+        return $this->participants;
     }
 
     public function addParticipant(Participant $participant): self
     {
-        if (!$this->participant->contains($participant)) {
-            $this->participant[] = $participant;
+        if (!$this->participants->contains($participant)) {
+            $this->participants[] = $participant;
         }
 
         return $this;
@@ -222,7 +218,7 @@ class Sortie
 
     public function removeParticipant(Participant $participant): self
     {
-        $this->participant->removeElement($participant);
+        $this->participants->removeElement($participant);
 
         return $this;
     }

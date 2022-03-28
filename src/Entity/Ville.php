@@ -20,7 +20,7 @@ class Ville
     private $idVille;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $nom;
 
@@ -30,14 +30,14 @@ class Ville
     private $codePostal;
 
     /**
-     * @ORM\OneToMany(targetEntity=Lieu::class, mappedBy="lieu", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Lieu::class, mappedBy="ville")
      * @ORM\JoinColumn(referencedColumnName="id_lieu")
      */
-    private $lieu;
+    private $lieux;
 
     public function __construct()
     {
-        $this->lieu = new ArrayCollection();
+        $this->lieux = new ArrayCollection();
     }
 
     public function getIdVille(): ?int
@@ -74,13 +74,13 @@ class Ville
      */
     public function getLieu(): Collection
     {
-        return $this->lieu;
+        return $this->lieux;
     }
 
     public function addLieu(Lieu $lieu): self
     {
-        if (!$this->lieu->contains($lieu)) {
-            $this->lieu[] = $lieu;
+        if (!$this->lieux->contains($lieu)) {
+            $this->lieux[] = $lieu;
             $lieu->setLieu($this);
         }
 
@@ -89,12 +89,7 @@ class Ville
 
     public function removeLieu(Lieu $lieu): self
     {
-        if ($this->lieu->removeElement($lieu)) {
-            // set the owning side to null (unless already changed)
-            if ($lieu->getLieu() === $this) {
-                $lieu->setLieu(null);
-            }
-        }
+        $this->lieux->removeElement($lieu);
 
         return $this;
     }

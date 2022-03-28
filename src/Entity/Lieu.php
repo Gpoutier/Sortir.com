@@ -40,13 +40,13 @@ class Lieu
     private $longitude;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="lieu")
-     * @ORM\JoinColumn(referencedColumnName="id_ville")
+     * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="lieux")
+     * @ORM\JoinColumn(referencedColumnName="id_ville", nullable=false)
      */
     private $ville;
 
     /**
-     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="lieu", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="lieu")
      * @ORM\JoinColumn(referencedColumnName="id_sortie")
      */
     private $sorties;
@@ -141,12 +141,7 @@ class Lieu
 
     public function removeSorty(Sortie $sorty): self
     {
-        if ($this->sorties->removeElement($sorty)) {
-            // set the owning side to null (unless already changed)
-            if ($sorty->getLieu() === $this) {
-                $sorty->setLieu(null);
-            }
-        }
+        $this->sorties->removeElement($sorty);
 
         return $this;
     }
