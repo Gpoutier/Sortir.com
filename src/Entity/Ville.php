@@ -20,7 +20,7 @@ class Ville
     private $idVille;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=180, unique=true)
      */
     private $nom;
 
