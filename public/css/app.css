@@ -40,10 +40,22 @@ header nav a:hover {
 main {
     flex: 1;
     padding: 1rem 0;
-    background-color: #FFF1E6;
+    background-color: #779468;
 }
 footer {
     padding: 2rem 0;
     text-align: center;
-    background-color: #EDDCD2;
+    background-color: #86A250;
+}
+label{
+    display: block;
+}
+
+input,
+textarea,
+select {
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    max-width: 50%;
+    min-width: 150px;
 }
