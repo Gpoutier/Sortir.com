@@ -57,7 +57,7 @@ class Sortie
 
     /**
      * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sorties")
-     * @ORM\JoinColumn(referencedColumnName="ville", nullable=false)
+     * @ORM\JoinColumn(referencedColumnName="ville_id", nullable=false)
      */
     private $ville;
 
