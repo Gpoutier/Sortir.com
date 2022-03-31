@@ -10,15 +10,21 @@ body {
     color: white;
     object-fit: cover;
     background-position: center;
-;
-
 }
+
+body>.container{
+    display: flex;
+    flex-direction: column;
+}
+
 .container {
-    max-width: 800px;
+    max-width: 1100px;
     margin: auto;
     background-color: black ;
     opacity: 90%;
+    padding: 10px;
 }
+
 header {
 
     padding: 1rem 0;
@@ -45,25 +51,65 @@ header nav a:hover {
 
 .header-nav ul li {
     display: inline-block;
-    padding: 10px;
+    padding: 5px;
 }
+
+
 main {
     flex: 1;
-    padding: 1rem 0;
+    padding: 10px;
+   }
+main form{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
+
+
+.btn_box{
+    width: 100%;
+    padding: 50px 100px 0px 100px;
+    text-align-last: justify;
+
+}
+button{
+    width: 150px;
+    height: 70px;
+    text-align-last: auto;
+    font-size: unset;
+}
+
+
 footer {
     padding: 2rem 0;
     text-align: center;
 }
-label{
-    display: block;
-}
 
 input,
 textarea,
-select {
-    margin-bottom: 1rem;
-    box-sizing: border-box;
-    max-width: 50%;
-    min-width: 150px;
+select{
+    padding: 10px 30px;
+    margin-bottom: 20px;
 }
+
+
+
+}
+/**
+.formInfo,
+.formGeo {
+    width: 50%;
+}
+.formInfo div,
+.formGeo div{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+
+}
+
+.formGeo div{
+
+}
+
+ */
