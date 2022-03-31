@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>tout les sorties</h2>
+    {% for sortie in sorties %}
+        <article>
+            <a href="{{ path('sortie_afficher-sortie', {id: sortie.idSortie}) }}" title="les sorties">{{ sortie.nom }}</a>
+        </article>
+    {% endfor %}
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

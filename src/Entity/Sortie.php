@@ -55,11 +55,7 @@ class Sortie
      */
     private $etat;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sorties")
-     * @ORM\JoinColumn(referencedColumnName="ville_id", nullable=false)
-     */
-    private $ville;
+
 
     /**
      * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sorties")
@@ -67,17 +63,6 @@ class Sortie
      */
     private $lieu;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sorties")
-     * @ORM\JoinColumn(referencedColumnName="latitude", nullable=false)
-     */
-    private $latitude;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sorties")
-     * @ORM\JoinColumn(referencedColumnName="longitude", nullable=false)
-     */
-    private $longitude;
 
     /**
      * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="sorties")
@@ -193,17 +178,6 @@ class Sortie
         return $this;
     }
 
-    public function getVille(): ?Ville
-    {
-        return $this->ville;
-    }
-
-    public function setVille(?Ville $ville): self
-    {
-        $this->ville = $ville;
-
-        return $this;
-    }
 
     public function getLieu(): ?Lieu
     {
@@ -213,30 +187,6 @@ class Sortie
     public function setLieu(?Lieu $lieu): self
     {
         $this->lieu = $lieu;
-
-        return $this;
-    }
-
-    public function getLatitude(): ?float
-    {
-        return $this->latitude;
-    }
-
-    public function setLatitude(?float $latitude): self
-    {
-        $this->latitude = $latitude;
-
-        return $this;
-    }
-
-    public function getLongitude(): ?float
-    {
-        return $this->longitude;
-    }
-
-    public function setLongitude(?float $longitude): self
-    {
-        $this->longitude = $longitude;
 
         return $this;
     }

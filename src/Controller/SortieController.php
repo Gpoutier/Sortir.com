@@ -6,6 +6,7 @@ use App\Entity\Sortie;
 use App\Form\SortieType;
 use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
+use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -71,6 +72,17 @@ class SortieController extends AbstractController
     {
         return $this->render('sortie/annulerSortie.html.twig',[
 
+        ]);
+    }
+
+    /**
+     * @Route("/", name="list")
+     */
+    public function list(SortieRepository $sortieRepository):Response
+    {
+        $sorties = $sortieRepository->findAll();
+        return $this->render('sortie/list.html.twig',[
+            "sorties"=>$sorties
         ]);
     }
 
