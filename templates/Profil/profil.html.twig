@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil!{% endblock %}
+
+{% block body %}
+    <div>
+
+        {{ form(monProfilForm) }}
+
+        <button> Enregistrer</button>
+        <button> Annuler</button>
+
+        {{ form_end(monProfilForm) }}
+    </div>
+{% endblock %}
