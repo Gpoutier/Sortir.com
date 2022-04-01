@@ -46,10 +46,16 @@ class SortieController extends AbstractController
     /**
      * @Route("/afficher-sortie/{id}", name="afficher-sortie")
      */
-        public function afficherSortie(int $id): Response
+        public function afficherSortie(int $id, SortieRepository $sortieRepository): Response
         {
-            return $this->render('sortie/afficherSortie.html.twig',[
+            $sortie= $sortieRepository->find($id);
+            // s'il n'existe pas en bdd, on déclenche une erreur 404
+            if (!$sortie){
+                throw $this->createNotFoundException('This sortie do not exists! Sorry!');
+            }
 
+            return $this->render('sortie/afficherSortie.html.twig',[
+                "sortie"=>$sortie
             ]);
         }
 
@@ -76,7 +82,7 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/", name="list")
+     * @Route("/list-sortie", name="sortie-list")
      */
     public function list(SortieRepository $sortieRepository):Response
     {
