@@ -109,12 +109,12 @@ class Lieu
         return $this;
     }
 
-    public function getLieu(): ?Ville
+    public function getVille(): ?Ville
     {
         return $this->ville;
     }
 
-    public function setLieu(?Ville $ville): self
+    public function setVille(?Ville $ville): self
     {
         $this->ville = $ville;
 
