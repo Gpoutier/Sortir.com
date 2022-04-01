@@ -63,6 +63,8 @@ main form{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    text-align-last: justify;
+
 }
 
 
@@ -74,7 +76,7 @@ main form{
 }
 button{
     width: 150px;
-    height: 70px;
+    height: 50px;
     text-align-last: auto;
     font-size: unset;
 }
@@ -86,30 +88,11 @@ footer {
 }
 
 input,
-textarea,
 select{
-    padding: 10px 30px;
+    padding: 10px 10px;
     margin-bottom: 20px;
 }
 
-
-
-
-/**
-.formInfo,
-.formGeo {
-    width: 50%;
+textarea{
+    padding-bottom: 50px;
 }
-.formInfo div,
-.formGeo div{
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 10px;
-
-}
-
-.formGeo div{
-
-}
-
- */

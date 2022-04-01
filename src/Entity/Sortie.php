@@ -63,6 +63,11 @@ class Sortie
      */
     private $lieu;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sorties")
+     * @ORM\JoinColumn(referencedColumnName="ville_id", nullable=false)
+     */
+    private $ville;
 
     /**
      * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="sorties")
@@ -190,6 +195,7 @@ class Sortie
 
         return $this;
     }
+
 
     public function getCampus(): ?Campus
     {

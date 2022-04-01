@@ -34,6 +34,11 @@
     </div>
 </header>
 {# contenu principal de chaque page #}
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="flash flash-{{ success }}">{{ message }}</div>
+    {% endfor %}
+{% endfor %}
 <main>
     <div class="container">
         {% block body %}

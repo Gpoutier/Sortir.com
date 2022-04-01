@@ -7,6 +7,7 @@ use App\Form\SortieType;
 use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,23 +23,32 @@ class SortieController extends AbstractController
      */
     public function createsortie(
         Request $request,
-        ParticipantRepository $participantRepository,
-        LieuRepository $lieuRepository
+        EntityManagerInterface $entityManager
     ): Response
 
     {
-        $lieu = $lieuRepository->findAll();
 
-        $campus = $participantRepository->findOneBy(array());
+        $participant = $this->getUser();
 
         $sortie = new Sortie();
         $sortieForm = $this->createForm(SortieType::class,$sortie);
-        //todo traiter le formulaire
+
+        $sortieForm->handleRequest($request);
+
+        if ($sortieForm->isSubmitted()){
+            $entityManager->flush();
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre sortie est bien enregistré.');
+            return $this->redirectToRoute('main_home',['id' => $sortie->getId()]);
+        }
+
+        //todo afficher les infos lieu
 
         return $this->render('sortie/createSortie.html.twig', [
             'sortieForm'=> $sortieForm->createView(),
-            'campus'=>$campus,
-            'lieu'=>$lieu
+            'participant'=>$participant,
+
         ]);
     }
 
