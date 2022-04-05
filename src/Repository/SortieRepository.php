@@ -45,6 +45,42 @@ class SortieRepository extends ServiceEntityRepository
         }
     }
 
+    public function sortieFiltre($nom, $idCampus, $datedebut, $datefin, $organisateur, $inscrit)
+    {
+        $queryBuilder = $this->createQueryBuilder('sortie');
+
+        $queryBuilder
+            ->andWhere('sortie.nom like :nom')
+            ->setParameter(':nom', '%'.$nom.'%');
+
+        if ($idCampus) {
+            $queryBuilder -> andWhere('sortie.campus = :idCampus')
+                ->setParameter(':idCampus', $idCampus);
+        }
+
+        if ($datedebut){
+            $queryBuilder ->andWhere('sortie.dateHeureDebut >= :datedebut')
+                ->setParameter(':datedebut', $datedebut);
+        }
+        if ($datefin){
+            $queryBuilder ->andWhere('sortie.dateHeureDebut <= :datefin')
+                ->setParameter(':datefin', $datefin);
+        }
+        if ($organisateur){
+            $queryBuilder ->andWhere('sortie.organisateur = :organisateur')
+                ->setParameter(':organisateur', $organisateur);
+
+        }
+        if ($inscrit){
+            $queryBuilder ->join('sortie.participants', 'p')
+                ->andWhere('p = :inscrit')
+                ->setParameter(':inscrit', $inscrit );
+        }
+
+        $query = $queryBuilder->getQuery();
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Sortie[] Returns an array of Sortie objects
     //  */

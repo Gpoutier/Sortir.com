@@ -2,15 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\SortieType;
 use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @Route("/sorties",name="sortie_")
@@ -46,16 +49,10 @@ class SortieController extends AbstractController
     /**
      * @Route("/afficher-sortie/{id}", name="afficher-sortie")
      */
-        public function afficherSortie(int $id, SortieRepository $sortieRepository): Response
+        public function afficherSortie(int $id): Response
         {
-            $sortie= $sortieRepository->find($id);
-            // s'il n'existe pas en bdd, on déclenche une erreur 404
-            if (!$sortie){
-                throw $this->createNotFoundException('This sortie do not exists! Sorry!');
-            }
-
             return $this->render('sortie/afficherSortie.html.twig',[
-                "sortie"=>$sortie
+
             ]);
         }
 
@@ -82,14 +79,34 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/list-sortie", name="sortie-list")
+     * @Route("/{idSortie}/inscription", name="inscription")
      */
-    public function list(SortieRepository $sortieRepository):Response
+    public function inscrire(EntityManagerInterface $entityManager,int $idSortie, SortieRepository $sortieRepository)
     {
-        $sorties = $sortieRepository->findAll();
-        return $this->render('sortie/list.html.twig',[
-            "sorties"=>$sorties
-        ]);
+        $sortie = $sortieRepository->find($idSortie);
+        /** @var  Participant $participant */
+        $participant = $this ->getUser();
+        $sortie->addParticipant($participant);
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('sortie detail',
+            ["idSortie" => $idSortie]);
     }
+    /**
+     * @Route("/{idSortie}/desincription", name="desincription")
+     */
+    public function desinscrire(EntityManagerInterface $entityManager,int $idsortie, SortieRepository $sortieRepository)
+    {
+        $sortie = $sortieRepository->find($idsortie);
+        /** @var  Participant $participant */
+        $participant = $this ->getUser();
+        $sortie->removeParticipant($participant);
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('main_home');
+    }
+
 
 }

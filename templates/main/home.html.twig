@@ -2,6 +2,57 @@
 
 {% block body %}
     <h2>Filtrer les sorties</h2>
+
+
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>Nom de la sortie</th>
+                <th>Date de la sortie</th>
+                <th>Clôture</th>
+                <th>inscrits/place</th>
+                <th>Etat</th>
+                <th>Inscrit</th>
+                <th>Organisateur</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for sortie in sorties %}
+                <tr>
+                    <td>{{ sortie.nom }}</td>
+                    <td>{{ sortie.dateHeureDebut|date('Y-m-d h:i') }}</td>
+                    <td>{{ sortie.dateLimiteInscription|date('Y-m-d') }}</td>
+                    <td>{{ sortie.nbInscriptionsMax }}</td>
+                    <td>{{ sortie.etat.libelle }}</td>
+                    <td>
+                        {% if app.user in sortie.participants  %}
+                        <p> X </p>
+                        {% endif %}
+                    </td>
+                    <td> <a href="{{ path('profildetail',{'idParticipant': sortie.organisateur.idParticipant}) }}">{{ sortie.organisateur.pseudo }}</a> </td>
+                    <td>
+                    {% if app.user.idParticipant == sortie.organisateur.idParticipant  %}
+                        <p> test </p>
+                        {# RAJOUTER Bons chemins
+                        <a href="{{ path('#',{'idSortie':sortie.idSortie}) }}> Modifier </a>
+                        <a href="{{ path('#',{'idSortie':sortie.idSortie}) }}> Publier </a>
+                        #}
+                        {% else %}
+                            {% if app.user in sortie.participants and sortie.etat.libelle != "Fermée"  %} {# RAJOUTER Vérification nombre inscrit #}
+                                <a href="{{ path('sortie_desincription',{'idSortie':sortie.idSortie}) }}"> Se désister </a>
+                            {% else %}
+                                <a href="{{ path('sortie_inscription',{'idSortie':sortie.idSortie}) }}"> S'inscrire </a>
+                            {% endif %}
+                            <a href="{{ path('sortie_inscription',{'idSortie':sortie.idSortie}) }}"> Afficher </a>
+                    {% endif %}
+                    </td>
+                {% endfor %}
+                </tr>
+            </tbody>
+        </table>"
+    </div>
 {% endblock %}
 
 

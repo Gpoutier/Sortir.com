@@ -105,4 +105,16 @@ class Campus
 
         return $this;
     }
+
+    public function getFiltreSortie(): ?FiltreSortie
+    {
+        return $this->filtreSortie;
+    }
+
+    public function setFiltreSortie(?FiltreSortie $filtreSortie): self
+    {
+        $this->filtreSortie = $filtreSortie;
+
+        return $this;
+    }
 }
