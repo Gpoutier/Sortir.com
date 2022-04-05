@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\SortieType;
-use App\Repository\LieuRepository;
-use App\Repository\ParticipantRepository;
+use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,49 +23,65 @@ class SortieController extends AbstractController
      */
     public function createsortie(
         Request $request,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+
+        EtatRepository $etatRepository
     ): Response
 
     {
-
+        /** @var Participant $participant */
         $participant = $this->getUser();
+        $etatOpen =  $etatRepository-> findOneBy(['libelle'=>'Ouvert']);
+        $etatCreation =  $etatRepository-> findOneBy(['libelle'=>'En création']);
 
         $sortie = new Sortie();
         $sortieForm = $this->createForm(SortieType::class,$sortie);
 
         $sortieForm->handleRequest($request);
 
-        if ($sortieForm->isSubmitted()){
-            $entityManager->flush();
+        if ($sortieForm->isSubmitted() && $sortieForm->isValid()){
+
+
+            $sortie->setEtat($etatOpen);
+            $sortie->setEtat($etatCreation);
+            $sortie ->setOrganisateur($participant);
+            $sortie ->setCampus($participant->getCampus());
+            $entityManager->persist($sortie);
             $entityManager->flush();
 
             $this->addFlash('success', 'Votre sortie est bien enregistré.');
-            return $this->redirectToRoute('main_home',['id' => $sortie->getId()]);
+            return $this->redirectToRoute('main_home',['id' => $sortie->getIdSortie()]);
         }
 
-        //todo afficher les infos lieu
+        //todo afficher les infos lieu avec l'APi
 
         return $this->render('sortie/createSortie.html.twig', [
             'sortieForm'=> $sortieForm->createView(),
-            'participant'=>$participant,
+            'participant'=> $participant
 
         ]);
     }
 
 
     /**
-     * @Route("/afficher-sortie/{id}", name="afficher-sortie")
+     * @Route("/afficher-sortie/{id}", name="afficherSortie")
      */
-        public function afficherSortie(int $id): Response
+        public function afficherSortie(int $id, SortieRepository $sortieRepository): Response
         {
-            return $this->render('sortie/afficherSortie.html.twig',[
+            $sortie= $sortieRepository->find($id);
+            // s'il n'existe pas en bdd, on déclenche une erreur 404
+            if (!$sortie){
+                throw $this->createNotFoundException('This sortie do not exists! Sorry!');
+            }
 
+            return $this->render('sortie/afficherSortie.html.twig',[
+                "sortie"=>$sortie
             ]);
         }
 
 
     /**
-     * @Route("/modifier-sortie/{id}", name="modifier-sortie")
+     * @Route("/modifier-sortie/{id}", name="modifierSortie")
      */
     public function modifierSortie(int $id): Response
     {
@@ -76,7 +92,7 @@ class SortieController extends AbstractController
 
 
     /**
-     * @Route("/annuler-sortie/{id}", name="annuler-sortie")
+     * @Route("/annuler-sortie/{id}", name="annulerSortie")
      */
     public function annulerSortie(int $id): Response
     {
@@ -86,7 +102,7 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/", name="list")
+     * @Route("/list-sortie", name="sortie-list")
      */
     public function list(SortieRepository $sortieRepository):Response
     {

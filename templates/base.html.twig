@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -36,7 +36,7 @@
 {# contenu principal de chaque page #}
 {% for label, messages in app.flashes %}
     {% for message in messages %}
-        <div class="flash flash-{{ success }}">{{ message }}</div>
+        <div class="flash flash-{{ label }}">{{ message }}</div>
     {% endfor %}
 {% endfor %}
 <main>
