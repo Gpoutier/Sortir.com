@@ -66,16 +66,11 @@ class Sortie
      * @ORM\JoinColumn(referencedColumnName="id_etat", nullable=false)
      */
     private $etat;
-
-
-
     /**
      * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sorties")
      * @ORM\JoinColumn(referencedColumnName="id_lieu", nullable=false)
      */
     private $lieu;
-
-
     /**
      * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="sorties")
      * @ORM\JoinColumn(referencedColumnName="id_campus", nullable=false)

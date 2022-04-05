@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{participants.pseudo}}{% endblock %}
+
+{% block body %}
+  <div>
+   <h1><strong> {{ participants.pseudo }} </strong> </h1>
+    <p> Prénom : {{ participants.prenom }} </p>
+    <p> Nom : {{ participants.nom }} </p>
+    <p> Téléphone : {{ participants.telephone }} </p>
+    <p> Email : {{ participants.mail }} </p>
+    <p> Campus : {{ participants.campus.nom }} </p>
+  </div>
+{% endblock %}
