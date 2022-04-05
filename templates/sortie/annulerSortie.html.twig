@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Annuler une sorties | {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <main>
+
+            <div >
+                <h1>Annuler une sortie</h1>
+                <p>Nom de la sortie : {{ sortie.nom }}</p>
+                <p>Nom de la sortie : {{ sortie.dateHeureDebut | date('d-m-Y') }}</p>
+                <p>Campus : {{ sortie.organisateur.campus.nom }}</p>
+                <p>Lieu : {{ sortie.lieu.rue }} {{ sortie.lieu.ville.codePostal }} {{ sortie.lieu.ville.nom }}</p>
+                {{ form_start(motifForm) }}
+
+                <div>
+                    {{ form_row(motifForm.motif) }}
+                    <div>
+                        {{ form_row(motifForm.enregistrer) }}
+                        <button><a href="{{ path('main_home')}}">Annuler</a></button>
+                    </div>
+                    {{ form_end(motifForm) }}
+                </div>
+            </div>
+
+    </main>
+
+{% endblock %}

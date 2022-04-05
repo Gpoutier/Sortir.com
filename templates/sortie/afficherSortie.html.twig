@@ -5,7 +5,7 @@
 {% block body %}
     <h1>{{ sortie.nom}}</h1>
 
-    <div>
+    <div class="container">
         <p>Date de la sortie : {{sortie.dateHeureDebut | date('d/m/Y')}}</p>
         <p>Date de Clôture : {{sortie.dateLimiteInscription | date('d/m/Y') }}</p>
         <p>Inscription/Places : {{ sortie.participants | length }} / {{sortie.NbInscriptionsMax}}</p>
@@ -26,9 +26,18 @@
 
         <thead>
         <tr>
-            <th>Prénom</th>
+            <th>pseudo</th>
             <th>Nom</th>
         </tr>
         </thead>
+
+        <tbody>
+        {% for p in sortie.participants %}
+            <tr>
+                <td>{{ p.pseudo }}</a></td>
+                <td>{{ p.nom }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
     </table>
 {% endblock %}
