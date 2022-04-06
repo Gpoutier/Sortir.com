@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\modele\FiltreSortie;
 use App\Repository\CampusRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

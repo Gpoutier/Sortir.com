@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace App\modele;
+
+use App\Entity\Campus;
 
 class FiltreSortie
 {
@@ -8,8 +10,6 @@ class FiltreSortie
     private ?Campus $campus=null;
 
     private ?string $nom=null;
-
-    private ?int $idcampus=null;
 
     private ?\DateTime $datedebut=null;
 
@@ -114,22 +114,5 @@ class FiltreSortie
     {
         $this->organisateur = $organisateur;
     }
-
-    /**
-     * @return int|null
-     */
-    public function getIdcampus(): ?int
-    {
-        return $this->idcampus;
-    }
-
-    /**
-     * @param int|null $idcampus
-     */
-    public function setIdcampus(?int $idcampus): void
-    {
-        $this->idcampus = $idcampus;
-    }
-
 
 }
