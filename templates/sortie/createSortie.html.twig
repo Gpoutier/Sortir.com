@@ -11,7 +11,7 @@
                 {{ form_row(sortieForm.dateHeureDebut)}}
                 {{ form_row(sortieForm.dateLimiteInscription) }}
                 {{ form_row(sortieForm.nbInscriptionsMax) }}
-                {{ form_row(sortieForm.duree)}}
+                <p>{{ form_row(sortieForm.duree)}}</p>
                {{ form_row(sortieForm.infosSortie)|nl2br}}
             </div>
 
@@ -20,15 +20,11 @@
 
                 {{ form_row(sortieForm.ville) }}
                 {{ form_row(sortieForm.lieu) }}
-                {# afficher les coordonnées lieu #}
-                {% for lieu in sortie %}
-                {% endfor %}
+
+                <div>{# afficher les coordonnées lieu #}</div>
 
             </div>
             <div class="btn_box">
-                <button id="creation" type="submit" onclick="{{ path('main_home') }}">Enregistrer</button>
-                <button id='publier' type="submit" onclick="{{ path('main_home') }}">Publier</button>
-                <button type="reset">Annuler</button>
             </div>
             {{ form_end(sortieForm) }}
             {% for error in field_errors (sortieForm) %}

@@ -36,7 +36,7 @@ class Sortie
     private $dateHeureDebut;
 
     /**
-     * @Assert\Range (min="1", notInRangeMessage="Veuillez entrer une valeur valide")
+     * @Assert\Range (min="1", notInRangeMessage="Veuillez entrer une valeur valide", max="10000")
      * @ORM\Column(type="integer")
      */
     private $duree;
