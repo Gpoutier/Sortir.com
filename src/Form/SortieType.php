@@ -27,7 +27,8 @@ class SortieType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class,[
-                'label'=>'Nom de la sortie : '
+                'label'=>'Nom de la sortie : ',
+
             ])
             ->add('dateHeureDebut',DateTimeType::class,[
                 'label'=>'Date et Heure de la sortie :',

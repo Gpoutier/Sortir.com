@@ -64,9 +64,7 @@ main form{
     flex-wrap: wrap;
     justify-content: space-around;
     text-align-last: justify;
-
 }
-
 
 .btn_box{
     width: 100%;

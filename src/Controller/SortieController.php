@@ -41,7 +41,7 @@ class SortieController extends AbstractController
 
             $etat = $sortieForm->get('enregistrer')->isClicked()
                 ? $etatRepository-> findOneBy(['libelle'=>'En création'])
-                :$etatRepository-> findOneBy(['libelle'=>'Ouvert']);;
+                :$etatRepository-> findOneBy(['libelle'=>'Ouvert']);
 
             $sortie ->setEtat($etat);
             $sortie ->setOrganisateur($participant);

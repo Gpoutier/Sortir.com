@@ -16,20 +16,17 @@
             </div>
 
             <div class="col bg-formGeo">
-               <p> Campus : {{ participant.campus.nom }}</p>
-
+                <p> Campus : {{ participant.campus.nom }}</p>
                 {{ form_row(sortieForm.ville) }}
                 {{ form_row(sortieForm.lieu) }}
-
                 <div>{# afficher les coordonnées lieu #}</div>
-
             </div>
-            <div class="btn_box">
+                <div class="btn_box">
             </div>
-            {{ form_end(sortieForm) }}
-            {% for error in field_errors (sortieForm) %}
-                <div class="error">{{ error }}</div>
-            {% endfor %}
+                {{ form_end(sortieForm) }}
+                {% for error in field_errors (sortieForm) %}
+                    <div class="error">{{ error }}</div>
+                {% endfor %}
         </div>
     </main>
 {% endblock %}
