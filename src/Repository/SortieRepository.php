@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Sortie;
+use App\Modele\FiltreSortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -45,36 +46,37 @@ class SortieRepository extends ServiceEntityRepository
         }
     }
 
-    public function sortieFiltre($nom, $idCampus, $datedebut, $datefin, $organisateur, $inscrit)
+    public function sortieFiltre(FiltreSortie $filtreSortie)
     {
         $queryBuilder = $this->createQueryBuilder('sortie');
 
+        if ($filtreSortie ->getNom())
         $queryBuilder
             ->andWhere('sortie.nom like :nom')
-            ->setParameter(':nom', '%'.$nom.'%');
+            ->setParameter(':nom', '%'.$filtreSortie ->getNom().'%');
 
-        if ($idCampus) {
+        if ($filtreSortie ->getCampus()) {
             $queryBuilder -> andWhere('sortie.campus = :idCampus')
-                ->setParameter(':idCampus', $idCampus);
+                ->setParameter(':idCampus', $filtreSortie->getCampus());
         }
 
-        if ($datedebut){
+        if ($filtreSortie ->getDatedebut()){
             $queryBuilder ->andWhere('sortie.dateHeureDebut >= :datedebut')
-                ->setParameter(':datedebut', $datedebut);
+                ->setParameter(':datedebut', $filtreSortie ->getDatedebut());
         }
-        if ($datefin){
+        if ($filtreSortie ->getDatefin()){
             $queryBuilder ->andWhere('sortie.dateHeureDebut <= :datefin')
-                ->setParameter(':datefin', $datefin);
+                ->setParameter(':datefin', $filtreSortie ->getDatefin());
         }
-        if ($organisateur){
+        if ($filtreSortie ->getOrganisateur()){
             $queryBuilder ->andWhere('sortie.organisateur = :organisateur')
-                ->setParameter(':organisateur', $organisateur);
+                ->setParameter(':organisateur',$filtreSortie ->getOrganisateur());
 
         }
-        if ($inscrit){
+        if ($filtreSortie ->getInscrit()){
             $queryBuilder ->join('sortie.participants', 'p')
                 ->andWhere('p = :inscrit')
-                ->setParameter(':inscrit', $inscrit );
+                ->setParameter(':inscrit',$filtreSortie ->getInscrit() );
         }
 
         $query = $queryBuilder->getQuery();

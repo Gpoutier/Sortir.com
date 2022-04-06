@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Etat;
+use App\modele\FiltreSortie;
+use App\Form\FiltreSortieType;
 use App\Repository\CampusRepository;
-use App\Repository\FiltreSortieRepository;
 use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,29 +19,15 @@ class MainController extends AbstractController
      */
     public function list(SortieRepository $sortieRepository, CampusRepository $campusRepository, Request $request):Response
     {
-        $campus = $campusRepository ->findAll();
-        $idCampus = $request->get('idcampus');
-        $datedebut = $request->get('datedebut');
-        $datefin = $request->get('datefin');
-        $organisateur = $request->get('organisateur') == 'on';
-        $inscrit = $request->get ('inscrit') == 'on';
-        $nom = $request->get('recherche');
+        $filtre = new FiltreSortie();
+        $filtre ->setCampus($this->getUser()->getCampus());
+        $filtreSortieType = $this->createForm(FiltreSortieType::class, $filtre);
+        $filtreSortieType->handleRequest($request);
+        $sorties = $sortieRepository->sortieFiltre($filtre);
 
-        $etat = new etat;
-        $etat->getLibelle();
-
-
-        $sorties = $sortieRepository->sortieFiltre($nom, $idCampus, $datedebut, $datefin, $organisateur, $inscrit);
         return $this->render('main/home.html.twig',[
-            "campus" => $campus,
-            "sorties" => $sorties,
-            "etat" =>$etat,
-            "recherche" =>$nom,
-            "idcampus" =>$idCampus,
-            "datedebut" =>$datedebut,
-            "datefin" =>$datefin,
-            "organisateur" =>$organisateur,
-            "inscrit" =>$inscrit,
+            'filtreSortieType' => $filtreSortieType->createView(),
+            'sorties' => $sorties
         ]);
     }
 

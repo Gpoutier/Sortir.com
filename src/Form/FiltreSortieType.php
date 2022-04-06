@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Campus;
-use App\Entity\FiltreSortie;
+use App\modele\FiltreSortie;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -21,18 +21,23 @@ class FiltreSortieType extends AbstractType
                 'class' => Campus::class,
                 'choice_label' => 'nom',
                 'label' => 'Site :',
+                'required' => false,
                 'attr' => ['readonly' => true
                 ]])
             ->add('nom', TextType::class, [
-                'label' => 'Le nom de la sortie contient :'
-            ])
-            ->add('idcampus')
-            ->add('datedebut', DateType::HTML5_FORMAT, [
-                'label' => 'Entre',
+                'label' => 'Le nom de la sortie contient :',
                  'required' => false,
             ])
-            ->add('datefin', DateType::HTML5_FORMAT, [
+            ->add('datedebut', DateType::class, [
+                'label' => 'Entre',
+                'html5'=>true,
+                'widget'=>'single_text',
+                 'required' => false,
+            ])
+            ->add('datefin', DateType::class, [
                 'label' => 'Et',
+                'html5'=>true,
+                'widget'=>'single_text',
                 'required' => false,
             ])
             ->add('inscrit', CheckboxType::class, [

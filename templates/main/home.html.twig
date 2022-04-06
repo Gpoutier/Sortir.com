@@ -2,7 +2,12 @@
 
 {% block body %}
 
-
+    <div>
+        {{ form_start(filtreSortieType) }}
+        {{ form_widget(filtreSortieType) }}
+        <button type="submit"> Rechercher </button>
+        {{ form_end(filtreSortieType) }}
+    </div>
 
     <div>
         <table>
@@ -48,6 +53,12 @@
                             <a href="{{ path('sortie_inscription',{'idSortie':sortie.idSortie}) }}"> Afficher </a>
                     {% endif %}
                     </td>
+                    {% else %}
+                        <tr>
+                            <td>
+                                <p>Aucune sorties trouvées</p>
+                            </td>
+                        </tr>
                 {% endfor %}
                 </tr>
             </tbody>
