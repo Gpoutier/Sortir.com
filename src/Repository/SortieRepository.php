@@ -70,7 +70,7 @@ class SortieRepository extends ServiceEntityRepository
         }
         if ($filtreSortie ->getOrganisateur()){
             $queryBuilder ->andWhere('sortie.organisateur = :organisateur')
-                ->setParameter(':organisateur',$filtreSortie ->getOrganisateur());
+                ->setParameter(':organisateur',$filtreSortie ->getIduser());
 
         }
         if ($filtreSortie ->getInscrit()){
