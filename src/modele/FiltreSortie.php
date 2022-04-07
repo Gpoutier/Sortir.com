@@ -18,11 +18,29 @@ class FiltreSortie
 
     private ?bool $inscrit=false;
 
+    private ?bool $pasInscrit=false;
+
     private ?bool $organisateur=false;
 
     private ?bool $sortieFermees=false;
 
     private ?int $iduser=null;
+
+    /**
+     * @return bool|null
+     */
+    public function getPasInscrit(): ?bool
+    {
+        return $this->pasInscrit;
+    }
+
+    /**
+     * @param bool|null $pasInscrit
+     */
+    public function setPasInscrit(?bool $pasInscrit): void
+    {
+        $this->pasInscrit = $pasInscrit;
+    }
 
     /**
      * @return int|null

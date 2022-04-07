@@ -79,6 +79,12 @@ class SortieRepository extends ServiceEntityRepository
                 ->andWhere('p.idParticipant = :inscrit')
                 ->setParameter(':inscrit', $filtreSortie ->getIduser());
         }
+        if ($filtreSortie ->getPasInscrit()){
+            $queryBuilder
+                ->InnerJoin('sortie.participants', 'p')
+                ->andWhere('p.idParticipant != :inscrit')
+                ->setParameter(':inscrit', $filtreSortie ->getIduser());
+        }
         if ($filtreSortie -> getSortieFermees()){
             $queryBuilder ->andWhere('sortie.etat = :sortieFermees')
                 ->setParameter(':sortieFermees', 4);

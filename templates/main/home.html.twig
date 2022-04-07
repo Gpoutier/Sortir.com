@@ -12,9 +12,18 @@
     <h2> Filtrer les sorties </h2>
     <div>
         {{ form_start(filtreSortieType) }}
-        {{ form_widget(filtreSortieType) }}
+        {{ form_row(filtreSortieType.campus) }}
+        {{ form_row(filtreSortieType.nom) }}
+        {{ form_row(filtreSortieType.datedebut) }}
+        {{ form_row(filtreSortieType.datefin) }}
+        {{ form_row(filtreSortieType.organisateur) }}
+        {{ form_row(filtreSortieType.inscrit) }}
+        {{ form_row(filtreSortieType.pasInscrit) }}
+        {{ form_row(filtreSortieType.sortieFermees) }}
         <button type="submit"> Rechercher</button>
         {{ form_end(filtreSortieType) }}
+
+
     </div>
 
     <div>

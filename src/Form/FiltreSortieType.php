@@ -44,6 +44,10 @@ class FiltreSortieType extends AbstractType
                 'label'    => 'Sorties auxquelles je suis incrite/e',
                 'required' => false,
             ])
+            ->add('pasInscrit', CheckboxType::class, [
+                'label'    => 'Sorties auxquelles je ne suis pas incrite/e',
+                'required' => false,
+            ])
             ->add('organisateur', CheckboxType::class, [
                 'label'    => 'Sorties dont je suis l\'organisateur/trice',
                 'required' => false,
