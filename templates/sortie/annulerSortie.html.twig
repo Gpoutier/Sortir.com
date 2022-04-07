@@ -17,9 +17,9 @@
 
                 <div>
                     {{ form_row(motifForm.motif) }}
-                    <div>
+                    <div class="btn_delete">
                         {{ form_row(motifForm.enregistrer) }}
-                        <button><a href="{{ path('main_home')}}">Annuler</a></button>
+                        <button class="btn_create"><a href="{{ path('main_home')}}">Annuler</a></button>
                     </div>
                     {{ form_end(motifForm) }}
                 </div>

@@ -4,28 +4,28 @@
 
     <div class="row">
         <div class="col text-right">
-            <p><strong>Date du jour : {{ "now"|date("d-m-Y") }}</strong><span id="date_span"></span> <span class="clock" id="heure_span"></span></p>
+            <p><strong>Date du jour : {{ "now"|date("d-m-Y") }}</strong></p>
             <p><strong>Participant : </strong> <span id="organisateur_pseudo">{{ app.user.pseudo }}</span></p>
         </div>
 
     </div>
     <h2> Filtrer les sorties </h2>
-    <div>
+    <div >
         {{ form_start(filtreSortieType) }}
         {{ form_row(filtreSortieType.campus) }}
         {{ form_row(filtreSortieType.nom) }}
         {{ form_row(filtreSortieType.datedebut) }}
         {{ form_row(filtreSortieType.datefin) }}
+    </div>
+    <div>
         {{ form_row(filtreSortieType.organisateur) }}
         {{ form_row(filtreSortieType.inscrit) }}
         {{ form_row(filtreSortieType.pasInscrit) }}
         {{ form_row(filtreSortieType.sortieFermees) }}
         <button type="submit"> Rechercher</button>
         {{ form_end(filtreSortieType) }}
-
-
     </div>
-
+    <br>
     <div>
         <table>
             <thead>
@@ -85,10 +85,11 @@
             </tr>
             </tbody>
         </table>
-        "
+
     </div>
+    <br>
     <div>
-        <button><a href="{{ path('sortie_createsortie') }}"> Créer une sortie </a></button>
+        <button class="btn_create"><a href="{{ path('sortie_createsortie') }}"> Créer une sortie </a></button>
     </div>
 {% endblock %}
 

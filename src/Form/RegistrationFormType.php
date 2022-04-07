@@ -21,17 +21,17 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('pseudo')
             ->add('prenom', TextType::class,[
-                'label' => 'Prenom'
+                'label' => 'Prenom :'
             ])
             ->add('nom', TextType::class,[
-                'label' => 'Nom'
+                'label' => 'Nom :'
             ])
             ->add('telephone', TextType::class,[
-                'label' => 'Telephone',
+                'label' => 'Telephone :',
             ])
             ->add('campus', EntityType::class,[
                 'class'=>Campus::class,
-                'choice_label'=>'nom'
+                'choice_label'=>'nom :'
             ])
             ->add('mail', TextType::class,[
                 'attr'=>['pattern'=>'^\S+@\S+$']

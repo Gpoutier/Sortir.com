@@ -6,19 +6,24 @@
     <h1>{{ sortie.nom}}</h1>
 
     <div class="container">
-        <p>Date de la sortie : {{sortie.dateHeureDebut | date('d/m/Y')}}</p>
-        <p>Date de Clôture : {{sortie.dateLimiteInscription | date('d/m/Y') }}</p>
-        <p>Inscription/Places : {{ sortie.participants | length }} / {{sortie.NbInscriptionsMax}}</p>
-        <p>Durée : {{sortie.duree}} minutes</p>
-        <p>Description et infos : {{sortie.infosSortie}}</p>
-        <p>Campus : {{sortie.campus.nom}}</p>
-        <p> laltutude : {{ sortie.lieu.latitude}}</p>
-        <p>longitude : {{ sortie.lieu.longitude}}</p>
-        <p>code postale:{{ sortie.lieu.ville.codePostal}}</p>
-        <p>Lieu : {{sortie.lieu.nom}}</p>
-        <p>Rue : {{sortie.lieu.rue}}</p>
-        <p>Etat : {{sortie.etat.libelle}} </p>
-        <p>Organisateur : {{sortie.organisateur.nom}} </p>
+        <div class="affSortie">
+            <p>Date de la sortie : {{sortie.dateHeureDebut | date('d/m/Y')}}</p>
+            <p>Date de Clôture : {{sortie.dateLimiteInscription | date('d/m/Y') }}</p>
+            <p>Inscription/Places : {{ sortie.participants | length }} / {{sortie.NbInscriptionsMax}}</p>
+            <p>Durée : {{sortie.duree}} minutes</p>
+            <p>Description et infos : <br> <br>{{sortie.infosSortie}}</p>
+        </div>
+        <div class="affSortie">
+            <p>Campus : {{sortie.campus.nom}}</p>
+            <p> laltutude : {{ sortie.lieu.latitude}}</p>
+            <p>longitude : {{ sortie.lieu.longitude}}</p>
+            <p>code postale:{{ sortie.lieu.ville.codePostal}}</p>
+            <p>Lieu : {{sortie.lieu.nom}}</p>
+            <p>Rue : {{sortie.lieu.rue}}</p>
+            <p>Etat : {{sortie.etat.libelle}} </p>
+            <p>Organisateur : <br> {{sortie.organisateur.nom}} </p>
+        </div>
+
     </div>
     <h3>liste des participants inscrites </h3>
 
