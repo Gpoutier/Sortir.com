@@ -41,8 +41,6 @@ class SortieType extends AbstractType
                 'label'=>'Date limite d\'inscription : ',
                 'html5'=>true,
                 'widget'=>'single_text',
-
-
                 ])
             ->add('nbInscriptionsMax', IntegerType::class,[
                 'label'=>'Nombre de places : '

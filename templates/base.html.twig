@@ -50,12 +50,15 @@
 
         {% block body %}
         {% endblock %}
+
     </div>
 </main>
 {# pied-de-page du site #}
 <footer>
     <div class="container"> © Sortir.com {{ "now"|date("Y") }} </div>
 </footer>
-
+        {% block javascript %}
+        {% endblock %}
 </body>
+
 </html>
