@@ -4,7 +4,7 @@
 {% block body %}
     <h1>Proposer une sortie</h1>
     <main>
-        <div >
+        <div>
             {{ form_start(sortieForm) }}
             <div class="col bg-formInfo">
                 {{ form_row(sortieForm.nom) }}
@@ -19,9 +19,9 @@
                 <p> Campus : {{ participant.campus.nom }}</p>
                 {{ form_row(sortieForm.ville) }}
                 {{ form_row(sortieForm.lieu) }}
-                <div>{# afficher les coordonnées lieu #}</div>
+                <p></p>
             </div>
-                <div class="btn_box">
+            <div class="btn_box">
             </div>
                 {{ form_end(sortieForm) }}
                 {% for error in field_errors (sortieForm) %}
@@ -35,4 +35,33 @@
 
     Créer une sortie | {{ parent() }}
 
+{% endblock %}
+
+{% block javascrip %}
+    <script>
+    function initListeLieux() {
+    $idVille = document.querySelector("#sortie_ville").value;
+
+        //appel de l'API
+    fetch("{{ app_url_api }}/lieux/"+$idVille, {method: "GET"})
+
+                 .then(response=>response.json())
+                 .then(response=>{
+                    //traiter les données
+                    let options="";
+                    response.map(lieu=>{
+                        options += `<option value="${lieu.id}">${lieu.nom}</option>`;
+                    })
+                    //mise à jour du select
+                    document.querySelector("#sortie_lieu").innerHTML = options;
+
+                })
+                    .catch(e=>{
+                        alert("ERREUR")
+                });
+        }
+        window.onload=()=>{
+            document.querySelector("#sortie_lieu").addEventListener('change',initListeLieux)
+        }
+    </script>
 {% endblock %}

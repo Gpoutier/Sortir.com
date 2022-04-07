@@ -17,6 +17,7 @@ class Sortie
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     *
      */
     private $idSortie;
 
@@ -55,7 +56,7 @@ class Sortie
     private $nbInscriptionsMax;
 
     /**
-     * @Assert\Length (max=255, maxMessage="votre mesage est trop long")
+     * @Assert\Length (max=255, maxMessage="votre message est trop long")
      * @ORM\Column(type="text", length=255)
      */
     private $infosSortie;
