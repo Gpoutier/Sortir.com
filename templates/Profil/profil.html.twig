@@ -5,8 +5,8 @@
 {% block body %}
     <div>
 
-        {{ form(monProfilForm) }}
-
+        {{ form_start(monProfilForm) }}
+        {{ form_widget(monProfilForm) }}
         <button> Enregistrer</button>
         <button> Annuler</button>
 
