@@ -3,6 +3,7 @@
 namespace App\modele;
 
 use App\Entity\Campus;
+use App\Entity\Etat;
 
 class FiltreSortie
 {
@@ -18,6 +19,43 @@ class FiltreSortie
     private ?bool $inscrit=false;
 
     private ?bool $organisateur=false;
+
+    private ?bool $sortieFermees=false;
+
+    private ?int $iduser=null;
+
+    /**
+     * @return int|null
+     */
+    public function getIduser(): ?int
+    {
+        return $this->iduser;
+    }
+
+    /**
+     * @param int|null $iduser
+     */
+    public function setIduser(?int $iduser): void
+    {
+        $this->iduser = $iduser;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getSortieFermees(): ?bool
+    {
+        return $this->sortieFermees;
+    }
+
+    /**
+     * @param bool|null $sortieFermees
+     */
+    public function setSortieFermees(?bool $sortieFermees): void
+    {
+        $this->sortieFermees = $sortieFermees;
+    }
+
 
     /**
      * @return \DateTime|null

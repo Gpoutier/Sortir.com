@@ -10,6 +10,7 @@ use phpDocumentor\Reflection\Types\Null_;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ParticipantRepository::class)
@@ -25,26 +26,36 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private $idParticipant;
 
     /**
+     * @Assert\NotBlank(message="Veuillez entrer un nom")
+     * @Assert\Length(max=255, maxMessage="Votre nom est trop long.")
      * @ORM\Column(type="string", length=50)
      */
     private $nom;
 
     /**
+     * @Assert\NotBlank(message="Veuillez entrer votre prénom")
+     * @Assert\Length(max=255, maxMessage="Votre prénom est trop long.")
      * @ORM\Column(type="string", length=50)
      */
     private $prenom;
 
     /**
+     * @Assert\NotBlank(message="Veuillez entrer votre téléphone")
+     * @Assert\Length(max=15, maxMessage="Votre téléphone est trop long.")
      * @ORM\Column(type="string", length=15)
      */
     private $telephone;
 
     /**
+     * @Assert\NotBlank(message="Veuillez entrer votre email")
+     * @Assert\Length(max=180, maxMessage="Votre email est trop long.")
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $mail;
 
     /**
+     * @Assert\NotBlank(message="Veuillez entrer votre mot de passe")
+     * @Assert\Length(max=180, maxMessage="Votre mot de passe est trop long.")
      * @ORM\Column(type="string", length=255)
      */
     private $motPasse;
@@ -60,6 +71,8 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private $actif;
 
     /**
+     * @Assert\NotBlank(message="Veuillez entrer votre pseudo")
+     * @Assert\Length(max=180, maxMessage="Votre pseudo est trop long.")
      * @ORM\Column(type="string", length=50, unique=true)
      */
     private $pseudo;

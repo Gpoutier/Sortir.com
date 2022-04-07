@@ -17,10 +17,11 @@ class MainController extends AbstractController
     /**
      * @Route("/",name="main_home")
      */
-    public function list(SortieRepository $sortieRepository, CampusRepository $campusRepository, Request $request):Response
+    public function list(SortieRepository $sortieRepository, Request $request):Response
     {
         $filtre = new FiltreSortie();
         $filtre ->setCampus($this->getUser()->getCampus());
+        $filtre ->setIduser($this->getUser()->getIdParticipant());
         $filtreSortieType = $this->createForm(FiltreSortieType::class, $filtre);
         $filtreSortieType->handleRequest($request);
         $sorties = $sortieRepository->sortieFiltre($filtre);

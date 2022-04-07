@@ -35,9 +35,6 @@ class MonProfilType extends AbstractType
             ->add('mail',EmailType::class, [
                 'label' => 'Email'
             ])
-            /*->add('motPasse', PasswordType::class, [
-                'label' => 'Mot de Passe'
-            ])*/
             ->add('motPasse', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les mots de passe doivent être similaires',

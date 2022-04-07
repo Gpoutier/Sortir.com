@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Campus;
+use App\Entity\Etat;
 use App\modele\FiltreSortie;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -22,8 +23,7 @@ class FiltreSortieType extends AbstractType
                 'choice_label' => 'nom',
                 'label' => 'Site :',
                 'required' => false,
-                'attr' => ['readonly' => true
-                ]])
+                ])
             ->add('nom', TextType::class, [
                 'label' => 'Le nom de la sortie contient :',
                  'required' => false,
@@ -48,6 +48,10 @@ class FiltreSortieType extends AbstractType
                 'label'    => 'Sorties dont je suis l\'organisateur/trice',
                 'required' => false,
             ])
+            ->add('sortieFermees', CheckboxType::class, [
+                'label' => 'Sorties passées',
+                'required' => false,
+                ])
         ;
     }
 
