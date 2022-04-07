@@ -21,29 +21,29 @@ class MonProfilType extends AbstractType
     {
         $builder
             ->add('pseudo', TextType::class, [
-                'label' => 'Pseudo'
+                'label' => 'Pseudo : '
             ])
             ->add('prenom',TextType::class, [
-                'label' => 'Prénom'
+                'label' => 'Prénom : '
             ])
             ->add('nom',TextType::class, [
-                'label' => 'Nom'
+                'label' => 'Nom : '
             ])
             ->add('telephone', TelType::class, [
-                'label' => 'Téléphone'
+                'label' => 'Téléphone : '
             ])
             ->add('mail',EmailType::class, [
-                'label' => 'Email'
+                'label' => 'Email : '
             ])
             ->add('motPasse', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les mots de passe doivent être similaires',
                 'required' => true,
-                'first_options'  => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Confirmation'],
+                'first_options'  => ['label' => 'Mot de passe : '],
+                'second_options' => ['label' => 'Confirmation : '],
             ])
             ->add('campus', EntityType::class, [
-                'label' => 'Campus',
+                'label' => 'Campus : ',
                 'class' => Campus::class,
                 'choice_label' => 'nom'
                 ]);

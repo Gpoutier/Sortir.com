@@ -110,7 +110,16 @@ textarea{
     padding-bottom: 50px;
 
 }
+.loginBox{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 50px;
+    align-items: baseline;
+}
+.modifprofil{
 
+    display: table-caption;
+}
 .affSortie{
     display: inline-grid;
     text-align-last: left;

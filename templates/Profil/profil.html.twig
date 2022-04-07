@@ -3,13 +3,14 @@
 {% block title %}Mon profil!{% endblock %}
 
 {% block body %}
-    <div>
+    <div class="modifprofil">
 
         {{ form_start(monProfilForm) }}
         {{ form_widget(monProfilForm) }}
-        <button> Enregistrer</button>
-        <button> Annuler</button>
-
+        <div class="btn_delete">
+            <button> Enregistrer</button>
+            <button> Annuler</button>
+        </div>
         {{ form_end(monProfilForm) }}
     </div>
 {% endblock %}
